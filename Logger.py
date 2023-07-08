@@ -42,3 +42,22 @@ logger.info('Info')
 logger.warning('Warning')
 logger.error('Error')
 logger.critical('Critical')
+
+
+def get_logger_basic(app_id: str=None, logger_name: str=None, logging_level= logging.INFO):
+    app_id_str = f'[app-id: {app_id}]' if app_id else ''
+    fmt = f'%(asctime)s {app_id_str} %(levelname)s %(threadName)s %(name)s %(message)s'
+    logging.basicConfig(
+        level = logging_level,
+        format=fmt,
+    )
+    if not logger_name:
+        logger_name = inspect.getmodule(inspect.stack()[1][0]).__name__
+    logger = logging.getLogger(logger_name)
+    return logger
+
+logger = get_logger_basic()
+logger.info('Info')
+logger.warning('Warning')
+logger.error('Error')
+logger.critical('Critical')
