@@ -1,0 +1,7 @@
+2023-07-08 12:52:02,688  INFO MainThread __main__ test
+2023-07-08 12:52:02,688  WARNING MainThread __main__ test
+2023-07-08 12:52:02,688  ERROR MainThread __main__ test
+2023-07-08 12:52:38,016  INFO MainThread __main__ Info
+2023-07-08 12:52:38,016  WARNING MainThread __main__ Warning
+2023-07-08 12:52:38,017  ERROR MainThread __main__ Error
+2023-07-08 12:52:38,017  CRITICAL MainThread __main__ Critical
