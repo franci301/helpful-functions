@@ -22,7 +22,12 @@ def get_logger(app_id: str=None, logger_name: str=None, logging_level= logging.I
         print('made')
     if not os.path.exists(os.path.dirname(file_path_year_month)):
         os.makedirs(os.path.dirname(file_path_year_month))
-    
+        
+    for file in os.listdir(file_path_year_month):
+        if int(file.split('@')[0]) + 7 <= int(day):
+            if os.path.isfile(file_path_year_month+'\\' + file):
+                os.remove(file_path_year_month+'\\' + file)
+
     logging.basicConfig(
         filename=f'{file_path_year_month}\\{day}@{time}.log',
         filemode='a+',
