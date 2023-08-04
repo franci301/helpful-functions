@@ -9,7 +9,7 @@ def logger_make_dirs(app_id: str=None, logger_name: str=None, logging_level= log
     This logger function will create a new file structure in the following format:
     2023
         Jul
-            Aug@15-48.log
+            07@15-48.log
     It will then save any logs inside the file created above
     
     Args:
@@ -64,7 +64,7 @@ def logger_delete_old(app_id: str=None, logger_name: str=None, logging_level= lo
     This logger function will create a new file structure in the following format:
     2023
         Jul
-            Aug@15-48.log
+            07@15-48.log
     It will delete any logs which are older than a week
     It will then save any logs inside the file created above
     
