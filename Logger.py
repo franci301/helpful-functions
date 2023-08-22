@@ -4,6 +4,39 @@ import datetime
 import inspect
 
 
+
+def rolling_logger(app_id: str = None, logger_name: str = None, logging_level=logging.INFO, path='C\\dir\\Logs\\',
+               log_file='file_name.log'):
+    """
+    Handles writing to the log file with specific style rules applied.
+    Rolling logs generates a new log file every week and stores onlu one weeks worth of old logs
+    
+    dir
+        Logs
+            file_name.log.20230814
+            file_name.log
+    """
+    print(path, log_file)
+    app_id_str = f"[app-id: {app_id}]" if app_id else ""
+    fmt = f"%(asctime)s {app_id_str} %(levelname)s %(threadName)s %(filename)s %(message)s"
+
+    if not logger_name:
+        # gets the name of the module calling get_logger
+        logger_name = inspect.getmodule(inspect.stack()[1][0]).__name__
+
+    logger = logging.getLogger(logger_name)
+    logger.setLevel(logging_level)
+
+    for handler in logger.handlers[:]:
+        logger.removeHandler(handler)
+
+    rotating_handler = TimedRotatingFileHandler(path + '\\' + log_file, when='W6', backupCount=1) # specifies how many logs to keep and when to roll over
+    rotating_handler.setFormatter(logging.Formatter(fmt))
+    logger.addHandler(rotating_handler)
+
+    return logger
+
+
 def logger_make_dirs(app_id: str=None, logger_name: str=None, logging_level= logging.INFO):
     """
     This logger function will create a new file structure in the following format:
