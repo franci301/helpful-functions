@@ -1,8 +1,8 @@
 import logging
+from logging.handlers import TimedRotatingFileHandler
 import os
 import datetime
 import inspect
-
 
 
 def rolling_logger(app_id: str = None, logger_name: str = None, logging_level=logging.INFO, path='C\\dir\\Logs\\',
