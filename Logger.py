@@ -3,7 +3,7 @@ from logging.handlers import TimedRotatingFileHandler
 import os
 import datetime
 import inspect
-
+import argparse
 
 def rolling_logger(app_id: str = None, logger_name: str = None, logging_level=logging.INFO, path='C\\dir\\Logs\\',
                log_file='file_name.log'):
@@ -35,6 +35,12 @@ def rolling_logger(app_id: str = None, logger_name: str = None, logging_level=lo
     logger.addHandler(rotating_handler)
 
     return logger
+
+parser = argparse.ArgumentParser(description='Parses path and log_file arguments')
+parser.add_argument('--path', default='dir/logs', type=str, help='Path to logs')
+parser.add_argument('--log_file', default='name.log', type=str, help='Log file name')
+args = parser.parse_args()
+logger = rolling_logger(path=args.path, log_file=args.log_file)
 
 
 def logger_make_dirs(app_id: str=None, logger_name: str=None, logging_level= logging.INFO):
