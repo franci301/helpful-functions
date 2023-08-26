@@ -8,26 +8,27 @@ class ShelveHandler:
     Class handles the loading and writing to shelve
     Shelve is a type of data storage
     """
+
     def load(self, db_name):
         """
         Args:
             db_name: name of the db to load
 
-        If the day stored in the db doesnt match the current day, then write the new day to the db and delete the information stored in dealers
-        if dealers does not yet exist (first time running) create an empty dictionary
-        Returns: data corresponding to the dealers
+        If the day stored in the db doesnt match the current day, then write the new day to the db and delete the information stored in INFO
+        if INFO does not yet exist (first time running) create an empty dictionary
+        Returns: data corresponding to the INFO
 
         """
         s = shelve.open(db_name)
         day = datetime.datetime.now(timezone("Europe/London")).strftime("%d")
         try:
-            data = s['dealers']
+            data = s['INFO']
             if s['day'] != day:
-                del s['dealers']
+                del s['INFO']
             s['day'] = day
         except KeyError:
             data = {}
-            s['dealers'] = data
+            s['INFO'] = data
             s['day'] = day
         finally:
             s.close()
@@ -47,14 +48,17 @@ class ShelveHandler:
         s = shelve.open(db_name)
         data = self.load(db_name)
         for i in d.keys():
-            dealer = i.split(' ')[0]
-            product = i.split(' ')[1]
-            instance = i.split(' ')[2]
-            dealer_prod = dealer + ' ' + product
-            if dealer_prod not in data:
-                data[dealer_prod] = [instance]
-            elif instance not in data[dealer_prod]:
-                data[dealer_prod].append(instance)
-        s['dealers'] = data
-        s.close()
 
+            # do what you want with the data here
+            x = i.split(' ')[0]
+            y = i.split(' ')[1]
+            id = i.split(' ')[2]
+            x_y = x + ' ' + y
+            # do what you want with the data here
+
+            if x_y not in data:
+                data[x_y] = [id]
+            elif id not in data[x_y]:
+                data[x_y].append(id)
+        s['INFO'] = data
+        s.close()
